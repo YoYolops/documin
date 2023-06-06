@@ -23,7 +23,6 @@ public class ElementoTermos extends ElementoAbstract {
 
         for(int i = 0; i < valoresOrdenados.size(); i++) {
             representacao += valoresOrdenados.get(i);
-
             if(i+1 < valoresOrdenados.size()) representacao += ", ";
         }
 
@@ -45,7 +44,7 @@ public class ElementoTermos extends ElementoAbstract {
 
     private List<String> ordenarValoresAlfabeticamente(String[] valores) {
         List<String> valoresList = Arrays.asList(valores);
-        Comparator<String> comparaAlfabeticamente = (str1, str2) -> str1.compareTo(str2);
+        Comparator<String> comparaAlfabeticamente = (str1, str2) -> str1.toLowerCase().compareTo(str2.toLowerCase());
         Collections.sort(valoresList, comparaAlfabeticamente);
         return valoresList;
     }
