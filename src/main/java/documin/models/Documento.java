@@ -1,6 +1,10 @@
 package documin.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import documin.models.Elemento.ElementoAbstract;
+import documin.models.Elemento.ElementoAtalho;
 import documin.models.Elemento.ElementoLista;
 import documin.models.Elemento.ElementoTermos;
 import documin.models.Elemento.ElementoTexto;
@@ -11,6 +15,7 @@ public class Documento {
     private String titulo;
     private ElementoAbstract[] elementos;
     private int tamanhoMaximo = 0;
+    private boolean isAtalho = false;
 
     public Documento(String titulo) {
         if(titulo.trim().equals("")) throw new IllegalArgumentException("Documentos precisam de título válido");
@@ -26,24 +31,31 @@ public class Documento {
         this.elementos = new ElementoAbstract[tamanho];
     }
 
-    public int criarElemento(String tituloDoc, String valor, int prioridade) {
+    public int criarElemento(String valor, int prioridade) {
         ElementoTexto novoElementoTexto = new ElementoTexto(prioridade, valor);
         return inserirNovoElemento(novoElementoTexto);
     }
 
-    public int criarElemento(String tituloDoc, String valor, int prioridade, int nivel, boolean linkavel) {
+    public int criarElemento(String valor, int prioridade, int nivel, boolean linkavel) {
         ElementoTitulo novoElementoTitulo = new ElementoTitulo(prioridade, valor, nivel, linkavel);
         return inserirNovoElemento(novoElementoTitulo);
     }
 
-    public int criarElemento(String tituloDoc, String valorLista, int prioridade, String separador, String charLista) {
+    public int criarElemento(String valorLista, int prioridade, String separador, String charLista) {
         ElementoLista novoElementoLista = new ElementoLista(prioridade, valorLista, separador, charLista);
         return inserirNovoElemento(novoElementoLista);
     }
 
-    public int criarElemento(String tituloDoc, String valorTermos, String separador, String ordem, int prioridade) {
+    public int criarElemento(String valorTermos, String separador, String ordem, int prioridade) {
         ElementoTermos novoElementoTermos = new ElementoTermos(prioridade, valorTermos, separador, ordem);
         return inserirNovoElemento(novoElementoTermos);
+    }
+
+    public int criarElemento(Documento documento) {
+        if(this.isAtalho) throw new IllegalStateException("Um documento que é atalho não pode compor outro atalho");
+        ElementoAtalho novoElementoAtalho = new ElementoAtalho(documento); 
+        this.isAtalho = true;
+        return inserirNovoElemento(novoElementoAtalho);
     }
 
     public int moverElementoUmaPosicaoParaCima(int posicaoElemento) {
@@ -109,7 +121,26 @@ public class Documento {
         }
     }
 
-    public ElementoAbstract[] getElementos() { return this.elementos; }
+    public String[] exibir() {
+        ElementoAbstract[] elementosCopia = this.getElementos();
+        String[] representacoes = new String[elementosCopia.length];
+        int indexCounter = 0;
+
+        for(ElementoAbstract elemento : elementosCopia) representacoes[indexCounter] = elemento.getValor();
+        return representacoes;
+    }
+
+    public ElementoAbstract[] getElementos() { //limpa os nulls do array antes de retorná-lo
+        List<ElementoAbstract> listaElementos = new ArrayList<ElementoAbstract>();
+        for(ElementoAbstract elemento : elementos) {
+            if(elemento != null) listaElementos.add(elemento);
+            else break;
+        }
+
+        ElementoAbstract[] returnalArray = new ElementoAbstract[listaElementos.size()];
+        listaElementos.toArray(returnalArray);
+        return returnalArray;
+    }
 
     public String getTitulo() { return this.titulo; }
 }

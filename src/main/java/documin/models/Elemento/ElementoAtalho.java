@@ -7,6 +7,9 @@ public class ElementoAtalho extends ElementoAbstract {
 
     public ElementoAtalho(Documento documentoAtalhado /* documento que o atalho representa */) {
         super(calcularPrioridadeDoAtalho(documentoAtalhado), calcularValor(documentoAtalhado));
+        for(ElementoAbstract elemento : documentoAtalhado.getElementos()) {
+            if(elemento.getClass().getSimpleName() == "ElementoAtalho") throw new IllegalStateException("Documentos com atalhos não podem se tornar atalho");
+        }
         this.documentoAtalhado = documentoAtalhado;
     }
 

@@ -32,6 +32,14 @@ public class DocumentoRepository {
         return true;
     }
 
+    public void removerDocumento(String titulo) {
+        int indexCounter = 0;
+        for(Documento documento : documentos) {
+            if(documento.getTitulo().equals(titulo)) documentos.remove(indexCounter);
+            indexCounter += 1;
+        }
+    }
+
     private boolean verificarSeTituloJaExiste(String tituloDoc) {
         for(Documento documento : documentos) {
             if(documento.getTitulo().equals(tituloDoc)) return true;
