@@ -127,3 +127,20 @@ Operações na Facade:
 - int criarVisaoPrioritaria(String tituloDoc, int prioridade)
 - int criarVisaoTitulo(String tituloDoc)
 - String[] exibirVisao(int visaoId)
+
+
+# Visão de um Documento
+Deve ser possível exportar o documento através de uma "visão". Existem 4 tipos de visão, que representam maneiras distintas de exibir um documento. Cada visão é cadastrada com um número sequencial (iniciando em 0).
+
+Existem 4 tipos de visualização, onde cada uma retorna uma String[], de acordo com os tipos da visão definidos a seguir:
+- Completa: …é a representação completa de cada elemento do documento referenciado;
+- Resumida: …é a representação resumida de cada elemento do documento referenciado;
+- Prioritária: …é a representação completa de cada elemento do documento referenciado que tenha prioridade maior (ou igual) que um determinado valor informado como parâmetro;
+- Títulos: …é a representação resumida de cada elemento do tipo título.
+
+Operações na Facade:
+- int criarVisaoCompleta(String tituloDoc)
+- int criarVisaoResumida(String tituloDoc)
+- int criarVisaoPrioritaria(String tituloDoc, int prioridade)
+- int criarVisaoTitulo(String tituloDoc)
+- String[] exibirVisao(int visaoId)

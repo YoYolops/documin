@@ -20,6 +20,7 @@ public class Documento {
     public Documento(String titulo) {
         if(titulo.trim().equals("")) throw new IllegalArgumentException("Documentos precisam de título válido");
         this.titulo = titulo;
+        this.elementos = new ElementoAbstract[10];
     }
 
     public Documento(String titulo, int tamanho) {
@@ -114,7 +115,10 @@ public class Documento {
         else {
             int indexCounter = 0;
             for(ElementoAbstract elemento : elementos) {
-                if(elemento == null) elementos[indexCounter] = novoElemento;
+                if(elemento == null) {
+                    elementos[indexCounter] = novoElemento;
+                    break;
+                }
                 indexCounter += 1;
             }
             return indexCounter;

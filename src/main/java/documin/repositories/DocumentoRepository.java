@@ -35,7 +35,10 @@ public class DocumentoRepository {
     public void removerDocumento(String titulo) {
         int indexCounter = 0;
         for(Documento documento : documentos) {
-            if(documento.getTitulo().equals(titulo)) documentos.remove(indexCounter);
+            if(documento.getTitulo().equals(titulo)) {
+                documentos.remove(indexCounter); 
+                break;
+            }
             indexCounter += 1;
         }
     }

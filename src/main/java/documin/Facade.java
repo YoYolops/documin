@@ -3,8 +3,6 @@ package documin;
 import documin.repositories.DocumentoRepository;
 import documin.repositories.VisaoRepository;
 
-// import documin.documento.DocumentoController
-
 public class Facade {
     private DocumentoRepository repositorioDocumentos;
     private VisaoRepository repositorioVisoes;
